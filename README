@@ -1,0 +1,66 @@
+mCertiKOS - one project for all seven lab experiments
+=====================================================
+
+This single project carries all lab experiments of the course. You work on
+it progressively: every lab builds on the code you wrote in the previous
+labs, so keep your solutions and continue in the same tree.
+
+  Lab 1: physical memory allocator          kern/pmm/MATIntro, MATInit, MATOp
+  Lab 2: memory containers and page tables  kern/pmm/MContainer, kern/vmm/MPTIntro
+  Lab 3: virtual memory management          kern/vmm/MPTOp, MPTComm, MPTKern, MPTNew
+  Lab 4: kernel threads and scheduling      kern/thread/PKCtxNew, PTCBInit,
+                                            PTQueueInit, PThread
+  Lab 5: processes, traps, system calls     kern/trap/TSyscallArg, TSyscall,
+                                            TTrapHandler
+  Lab 6: multiprocessor and synchronization kern/trap/TTrapInit, kern/thread/PThread,
+                                            kern/trap/TSyscall (bbuf.c, TSyscall.c)
+  Lab 7: disk and file system               kern/trap/TTrapHandler, kern/fs/*
+
+After the seven experiments, the course project is built with LAB=8 (see the
+project description).
+
+The lab sheets (objectives, tasks, expected output and evaluation) are in
+the labs/ directory: labs/LAB1.md ... labs/LAB7.md.
+
+Every task is marked in the code with a comment of the form
+
+  TODO [Lab <n>]
+
+To list the tasks of, e.g., lab 2:   grep -rn "TODO \[Lab 2\]" kern user
+Tasks marked "(optional)" are not required. All tasks are in C; you do not
+need to write any assembly code.
+
+Requirements
+------------
+Install the tools with the setup script in the directory above this one
+(bash ../setup.sh); see ../SETUP.md and Chapter 2 of the lab handout. The
+project builds on Ubuntu/Debian, Fedora, macOS (i686-elf cross-compiler) and
+Windows (WSL 2).
+
+QEMU uses KVM automatically when /dev/kvm is available (much faster).
+
+Selecting the lab
+-----------------
+The LAB variable tells the build which lab you are working on. It decides how
+far the kernel boots and which tests run. Either change "LAB ?= 1" in the
+Makefile when you move to the next lab, or pass it on the command line:
+
+  make LAB=2 ...
+
+The tree is rebuilt from scratch automatically whenever LAB or TEST changes.
+
+Commands
+--------
+Compile:        make LAB=<n>
+Run the tests:  make LAB=<n> TEST=1
+                (builds, boots qemu and prints "LAB <n> RESULT: x / y test
+                groups passed."; exit qemu with Ctrl-a x)
+Run in qemu:    make LAB=<n> && make qemu-nox      (or: make qemu)
+Debug with gdb: make qemu-gdb / make qemu-nox-gdb
+                (in another terminal) gdb
+
+List here the following info:
+1. who you have worked with
+2. whether you coded this assignment together, and if not, who worked on which part
+3. brief description of what you have implemented
+4. and anything else you would like us to know
